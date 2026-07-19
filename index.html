@@ -54,6 +54,17 @@
       <article class="panel formula-card"><span class="panel-number">01</span><span class="section-kicker" data-i18n="tradePrice">交易价格</span><h3 id="metricTitle">ETF 溢价</h3><div class="big-metric" id="metricValue">—</div><div class="plain-label" id="metricLabel">你比基金资产估值多付多少</div><div class="formula" id="metricFormula">场内价 ÷ 估值净值 − 1</div><p class="hint" id="metricHint">ETF 溢价超过 3% 时，即使指数不跌，溢价回落也可能带来损失。</p></article>
       <article class="panel position-card"><span class="panel-number">02</span><span class="section-kicker" data-i18n="priceTemp">价位温度</span><h3 data-i18n="position">近一年价格位置</h3><div class="position-score"><strong id="positionScore">—</strong><span>/ 100</span></div><div class="position-track"><i id="positionFill"></i><b id="positionMarker"></b></div><div class="scale-labels"><span data-i18n="low">相对低位</span><span data-i18n="middle">中间区域</span><span data-i18n="high">相对高位</span></div><p class="hint" data-i18n="positionHelp">把最近约 250 个交易日的最低价记为 0，最高价记为 100。它只告诉你位置，不代表真实价值。</p></article>
     </div>
+    <article class="forecast-panel" id="forecastPanel">
+      <div class="forecast-head"><div><span class="section-kicker" data-i18n="forecastKicker">03 · 时间序列基线</span><h2 data-i18n="forecastTitle">未来5个交易日：趋势参考，不是价格预言</h2></div><span class="model-badge" data-i18n="modelName">对数线性趋势 + 波动区间</span></div>
+      <div class="forecast-grid">
+        <div><small data-i18n="forecastCurrent">当前价格</small><b id="forecastCurrent">—</b></div>
+        <div><small data-i18n="forecastMid">第5日趋势中值</small><b id="forecastMid">—</b></div>
+        <div><small data-i18n="forecastRange">约80%波动参考区间</small><b id="forecastRange">—</b></div>
+        <div><small data-i18n="backtestError">历史5日预测平均误差</small><b id="backtestError">—</b></div>
+      </div>
+      <div class="forecast-days" id="forecastDays"></div>
+      <p class="source-warning" id="forecastExplain">模型使用最近60个交易日的对数价格趋势，并用日收益波动率生成区间。趋势会在消息、财报和市场风格变化时迅速失效。</p>
+    </article>
   </section>
 
   <section class="explain-section beginner"><div><span class="section-kicker" data-i18n="beginner">新手先看这三件事</span><h2 data-i18n="why">为什么这么判断</h2></div><div class="explain-grid">
@@ -63,8 +74,10 @@
   </div></section>
 
   <section class="plan-section" id="plan"><div class="plan-head"><div><span class="section-kicker" data-i18n="myPlan">我的买入计划</span><h2 data-i18n="planTitle">预算你来定，节奏提前想好</h2><p data-i18n="planIntro">下面只是纪律模板，不是预测。沪深 ETF 和股票通常按 100 份一手。</p></div><label><i data-i18n="budgetInput">输入投资预算</i><span>¥</span><input id="budgetInput" type="number" min="100" step="100" value="4000"></label></div>
-    <div class="budget-strip"><div><span data-i18n="perLot">每手约</span><b id="lotCost">—</b><small>100 份 / 股</small></div><div><span data-i18n="maxBuy">最多可买</span><b id="maxShares">—</b><small id="maxSpent">—</small></div><div><span data-i18n="cashLeft">预计剩余</span><b id="cashLeft">—</b><small data-i18n="fees">未计佣金</small></div></div>
+    <div class="budget-strip"><div><span data-i18n="perLot">每手约</span><b id="lotCost">—</b><small>100 份 / 股</small></div><div><span data-i18n="maxBuy">一次性全部买入最多</span><b id="maxShares">—</b><small id="maxSpent">—</small></div><div><span data-i18n="cashLeft">一次性买入后剩余</span><b id="cashLeft">—</b><small data-i18n="fees">未计佣金</small></div></div>
+    <p class="plan-clarifier" data-i18n="planClarifier">上面是假设现在一次性投入全部预算；下面才是分三批、满足价格条件后再执行的计划。</p>
     <div class="tranche-list" id="trancheList"></div>
+    <div class="plan-total"><span data-i18n="plannedTotal">三批全部触发时预计投入</span><b id="plannedTotal">—</b><small id="plannedCash">—</small></div>
   </section>
   <footer><div><span class="brand"><span>溢</span><i data-i18n="brand">溢价雷达</i></span></div><p class="disclaimer" data-i18n="disclaimer">仅为信息与计算工具，不构成投资建议。公开行情可能延迟或有误，下单前请以交易所、基金公司及券商数据为准。</p><p class="data-source" id="updateTime">等待行情</p></footer>
 </main>
