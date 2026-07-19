@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="输入沪深股票或 ETF 代码，用白话查看行情、价格位置、溢价风险与分批买入计划。">
+  <meta property="og:title" content="溢价雷达｜股票与 ETF 买前检查器">
+  <meta property="og:description" content="输入代码，用白话看懂它现在贵不贵。">
+  <meta property="og:image" content="og.png">
+  <title>溢价雷达｜股票与 ETF 买前检查器</title>
+  <link rel="icon" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <header class="topbar">
+    <a class="brand" href="#top"><span>溢</span><i id="brandText">溢价雷达</i></a>
+    <nav><a href="#market" data-i18n="navMarket">行情</a><a href="#analysis" data-i18n="navView">白话判断</a><a href="#plan" data-i18n="navPlan">买入计划</a></nav>
+    <div class="header-actions"><button class="lang-toggle" id="langBtn">EN</button><button class="refresh" id="refreshBtn">↻ 刷新行情</button></div>
+  </header>
+
+  <section class="hero search-hero" id="top">
+    <div class="eyebrow"><span></span><i data-i18n="eyebrow">股票 / ETF 买前检查器</i></div>
+    <h1><i data-i18n="hero1">输入代码，看懂它</i><br><span data-i18n="hero2">现在贵不贵。</span></h1>
+    <p data-i18n="intro">不用懂 PE、IOPV 或复杂公式。输入沪深 6 位代码和预算，我们把数据翻译成白话。</p>
+    <form class="code-search" id="searchForm">
+      <input id="codeInput" aria-label="输入 6 位代码" inputmode="numeric" maxlength="6" value="513500" placeholder="输入 6 位代码，例如 513500">
+      <button id="analyseBtn" type="submit">开始分析 →</button>
+    </form>
+    <small class="support-note" data-i18n="support">支持沪深 A 股与场内 ETF；暂不支持美股代码。</small>
+    <div class="quick-codes"><span data-i18n="quick">试试这些</span>
+      <button data-code="513500"><b>513500</b><i>标普 500 ETF</i></button>
+      <button data-code="513100"><b>513100</b><i>纳指 100 ETF</i></button>
+      <button data-code="600519"><b>600519</b><i>贵州茅台</i></button>
+      <button data-code="300750"><b>300750</b><i>宁德时代</i></button>
+    </div>
+    <p class="loading-line" id="loadingLine" hidden>正在读取公开行情…</p>
+    <p class="error-note" id="errorLine"></p>
+  </section>
+
+  <section class="decision" id="market">
+    <div class="quote-banner">
+      <div><span class="asset-badge" id="assetType">ETF</span><h2 id="assetName">等待查询</h2><p id="assetCode">513500</p></div>
+      <div><small data-i18n="marketPrice">当前价格</small><b class="metric-value" id="marketPrice">—</b></div>
+      <div><small data-i18n="dayChange">今日涨跌</small><b id="dayChange">—</b></div>
+    </div>
+    <div class="verdict careful" id="verdictBox">
+      <div class="verdict-copy"><span class="section-kicker" data-i18n="verdict">一句话判断</span><h2 id="verdictTitle">输入代码开始分析</h2><p id="verdictCopy">行情加载完成后，会把专业数据翻译成白话。</p>
+        <div class="status-pills"><span id="premiumPill">ETF 溢价 <b>—</b></span><span><i data-i18n="position">近一年价格位置</i> <b id="positionPill">—</b></span><span><i data-i18n="budget">我的预算</i> <b id="budgetPill">¥4,000</b></span></div>
+      </div>
+      <div class="risk-gauge" id="riskGauge" style="--risk:50%"><div><strong id="riskNumber">50</strong><span data-i18n="risk">综合风险温度</span></div></div>
+    </div>
+    <div class="analysis-grid" id="analysis">
+      <article class="panel formula-card"><span class="panel-number">01</span><span class="section-kicker" data-i18n="tradePrice">交易价格</span><h3 id="metricTitle">ETF 溢价</h3><div class="big-metric" id="metricValue">—</div><div class="plain-label" id="metricLabel">你比基金资产估值多付多少</div><div class="formula" id="metricFormula">场内价 ÷ 估值净值 − 1</div><p class="hint" id="metricHint">ETF 溢价超过 3% 时，即使指数不跌，溢价回落也可能带来损失。</p></article>
+      <article class="panel position-card"><span class="panel-number">02</span><span class="section-kicker" data-i18n="priceTemp">价位温度</span><h3 data-i18n="position">近一年价格位置</h3><div class="position-score"><strong id="positionScore">—</strong><span>/ 100</span></div><div class="position-track"><i id="positionFill"></i><b id="positionMarker"></b></div><div class="scale-labels"><span data-i18n="low">相对低位</span><span data-i18n="middle">中间区域</span><span data-i18n="high">相对高位</span></div><p class="hint" data-i18n="positionHelp">把最近约 250 个交易日的最低价记为 0，最高价记为 100。它只告诉你位置，不代表真实价值。</p></article>
+    </div>
+  </section>
+
+  <section class="explain-section beginner"><div><span class="section-kicker" data-i18n="beginner">新手先看这三件事</span><h2 data-i18n="why">为什么这么判断</h2></div><div class="explain-grid">
+    <article><b>01</b><h3 data-i18n="check1">它是什么</h3><p data-i18n="check1p">ETF 是一篮子资产；股票是一家公司，风险更集中。</p></article>
+    <article><b>02</b><h3 data-i18n="check2">价格有没有额外加价</h3><p data-i18n="check2p">只有 ETF 才有相对净值的溢价，股票没有这个概念。</p></article>
+    <article><b>03</b><h3 data-i18n="check3">一次买多少</h3><p data-i18n="check3p">不要因为一个分数一次买满，分批能降低押错时点的压力。</p></article>
+  </div></section>
+
+  <section class="plan-section" id="plan"><div class="plan-head"><div><span class="section-kicker" data-i18n="myPlan">我的买入计划</span><h2 data-i18n="planTitle">预算你来定，节奏提前想好</h2><p data-i18n="planIntro">下面只是纪律模板，不是预测。沪深 ETF 和股票通常按 100 份一手。</p></div><label><i data-i18n="budgetInput">输入投资预算</i><span>¥</span><input id="budgetInput" type="number" min="100" step="100" value="4000"></label></div>
+    <div class="budget-strip"><div><span data-i18n="perLot">每手约</span><b id="lotCost">—</b><small>100 份 / 股</small></div><div><span data-i18n="maxBuy">最多可买</span><b id="maxShares">—</b><small id="maxSpent">—</small></div><div><span data-i18n="cashLeft">预计剩余</span><b id="cashLeft">—</b><small data-i18n="fees">未计佣金</small></div></div>
+    <div class="tranche-list" id="trancheList"></div>
+  </section>
+  <footer><div><span class="brand"><span>溢</span><i data-i18n="brand">溢价雷达</i></span></div><p class="disclaimer" data-i18n="disclaimer">仅为信息与计算工具，不构成投资建议。公开行情可能延迟或有误，下单前请以交易所、基金公司及券商数据为准。</p><p class="data-source" id="updateTime">等待行情</p></footer>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
