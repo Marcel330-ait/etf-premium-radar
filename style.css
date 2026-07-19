@@ -102,3 +102,14 @@ footer { max-width:1200px; margin:auto; border-top:1px solid var(--line); paddin
 .metric-value { font-variant-numeric:tabular-nums; }
 .empty-box { border:1px dashed #343735; border-radius:16px; padding:34px; color:#858986; text-align:center; }
 .source-warning { border-left:2px solid #f5c269; padding-left:14px; color:#8b8f8c; font-size:12px; line-height:1.7; margin-top:22px; }
+.forecast-panel { margin-top:16px; border:1px solid var(--line); background:linear-gradient(135deg,#151717,#111313); border-radius:20px; padding:36px; }
+.forecast-head { display:flex; justify-content:space-between; align-items:start; gap:24px; }
+.forecast-head h2 { margin:12px 0 0; font-size:27px; letter-spacing:-.03em; }
+.model-badge { border:1px solid #3c403d; color:#9ea29e; border-radius:99px; padding:8px 12px; font-size:10px; white-space:nowrap; }
+.forecast-grid { display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--line); border-radius:14px; overflow:hidden; margin-top:30px; }
+.forecast-grid>div { padding:22px; border-right:1px solid var(--line); }.forecast-grid>div:last-child{border:0}.forecast-grid small{display:block;color:#747875;font-size:10px;margin-bottom:8px}.forecast-grid b{font-size:21px}
+.forecast-days { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin-top:16px; }.forecast-days div{background:#0f1111;border:1px solid #292c2a;border-radius:10px;padding:13px}.forecast-days small{display:block;color:#6d716e;font-size:9px;margin-bottom:5px}.forecast-days b{font-size:14px}
+.plan-clarifier { color:#8b8f8c; border-left:2px solid var(--lime); padding:10px 14px; margin:0 0 14px; font-size:12px; line-height:1.65; }
+.plan-total { display:flex; align-items:baseline; justify-content:flex-end; gap:16px; padding:22px 26px; color:#858986; font-size:11px; }.plan-total b{color:#fff;font-size:20px}.plan-total small{color:#6d716e}
+@media(max-width:900px){.forecast-grid{grid-template-columns:1fr 1fr}.forecast-grid>div:nth-child(2){border-right:0}.forecast-grid>div{border-bottom:1px solid var(--line)}.forecast-days{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:620px){.forecast-panel{padding:25px}.forecast-head{display:block}.model-badge{display:inline-block;margin-top:16px}.forecast-grid{grid-template-columns:1fr}.forecast-grid>div{border-right:0}.forecast-days{grid-template-columns:1fr 1fr}.plan-total{align-items:flex-end;flex-direction:column;gap:4px}}
